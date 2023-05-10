@@ -17,15 +17,13 @@ async function getAllEmail(token: string): Promise<IBodyEmail[] | [] | false> {
   }
 }
 
-async function createTokenEmail(
-  email: string,
-): Promise<{ data: string } | false> {
+async function createTokenEmail(email: string): Promise<string | false> {
   try {
     return (
       await axios.post(`${import.meta.env.VITE_URL_API_EMAIL}/create`, {
         email: email + '@' + import.meta.env.VITE_SERVER_EMAIL,
       })
-    ).data
+    ).data.data
   } catch (error) {
     console.error(error)
     return false

@@ -6,10 +6,13 @@ interface IStoreEmail {
   server: string
   emailComplete: string
   allEmail: IBodyEmail[] | []
+  token: string
   changeEmail: (value: string) => void
   clearEmail: () => void
   addBodyInArray: (bodyEmail: IBodyEmail) => void
   clearBodyInArray: () => void
+  changeToken: (value: string) => void
+  clearToken: () => void
 }
 
 const storeEmail = create<IStoreEmail>((set) => ({
@@ -17,15 +20,18 @@ const storeEmail = create<IStoreEmail>((set) => ({
   server: import.meta.env.VITE_SERVER_EMAIL,
   emailComplete: '',
   allEmail: [],
+  token: '',
   changeEmail: (words: string) =>
     set((state) => ({
       words,
       emailComplete: `${words}@${state.server}`,
     })),
-  clearEmail: () => set(() => ({ words: '', emailComplete: '' })),
+  changeToken: (value: string) => set(() => ({ token: value })),
   addBodyInArray: (bodyEmail: IBodyEmail) =>
     set((state) => ({ allEmail: [...state.allEmail, bodyEmail] })),
   clearBodyInArray: () => set(() => ({ allEmail: [] })),
+  clearEmail: () => set(() => ({ words: '', emailComplete: '' })),
+  clearToken: () => set(() => ({ token: '' })),
 }))
 
 export default storeEmail
