@@ -1,11 +1,13 @@
-import React from 'react'
+import { StrictMode } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
 import ReactDOM from 'react-dom/client'
 import Home from './pages/Home.tsx'
 import ListEmail from './pages/ListEmail.tsx'
 import './main.css'
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import NotFound from './pages/NotFound.tsx'
+import ViewEmail from './pages/ViewEmail.tsx'
 
 const router = createBrowserRouter([
   {
@@ -18,10 +20,15 @@ const router = createBrowserRouter([
     element: <ListEmail />,
     errorElement: <NotFound />,
   },
+  {
+    path: '/viewEmail/:index',
+    element: <ViewEmail />,
+    errorElement: <NotFound />,
+  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+  <StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  </StrictMode>,
 )

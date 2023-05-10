@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 
 import useStoreEmail from '../zustand/email'
 import useStoreLoading from '../zustand/loading'
-import { createTokenEmail, generateWords } from '../helpers/fetchData'
+import { generateWords } from '../helpers/fetchData'
 
 import ShowEmail from '../components/ShowEmail'
 
@@ -20,14 +20,6 @@ function Home() {
     storeLoading.changeButtonGenerateWords(false)
   }
 
-  async function createEmail() {
-    const token = await createTokenEmail(storeEmail.words)
-    if (!token) {
-      return false
-    }
-    storeEmail.changeToken(token)
-  }
-
   return (
     <>
       <div className="flex flex-col items-center justify-center h-screen">
@@ -40,7 +32,6 @@ function Home() {
                 : 'btn btn-outline btn-success'
             }
             onClick={async () => {
-              await createEmail()
               navigate('/listEmail')
             }}
           >
