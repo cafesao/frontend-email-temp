@@ -27,7 +27,7 @@ const storeEmail = create<IStoreEmail>((set) => ({
       emailComplete: `${words}@${state.server}`,
     })),
   changeToken: (value: string) => set(() => ({ token: value })),
-  changeEmails: (value: IBodyEmail[]) => set((state) => ({ allEmail: value })),
+  changeEmails: (value: IBodyEmail[]) => set(() => ({ allEmail: value })),
   clearBodyInArray: () => set(() => ({ allEmail: [] })),
   clearEmail: () => set(() => ({ words: '', emailComplete: '' })),
   clearToken: () => set(() => ({ token: '' })),
