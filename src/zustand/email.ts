@@ -13,6 +13,7 @@ interface IStoreEmail {
   clearBodyInArray: () => void
   changeToken: (value: string) => void
   clearToken: () => void
+  default: () => void
 }
 
 const storeEmail = create<IStoreEmail>((set) => ({
@@ -31,6 +32,13 @@ const storeEmail = create<IStoreEmail>((set) => ({
   clearBodyInArray: () => set(() => ({ allEmail: [] })),
   clearEmail: () => set(() => ({ words: '', emailComplete: '' })),
   clearToken: () => set(() => ({ token: '' })),
+  default: () =>
+    set(() => ({
+      words: '',
+      emailComplete: '',
+      allEmail: [],
+      token: '',
+    })),
 }))
 
 export default storeEmail

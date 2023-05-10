@@ -12,6 +12,7 @@ function Home() {
   const navigate = useNavigate()
 
   async function generateEmail() {
+    storeEmail.default()
     storeLoading.changeButtonGenerateWords(true)
 
     const data = await generateWords()
