@@ -22,7 +22,7 @@ function Auth() {
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-5">
       <input
-        type="text"
+        type="password"
         className="input input-bordered w-full max-w-xs"
         placeholder="Password"
         value={password}
