@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 function Auth() {
   const storeAuth = useStoreAuth()
   const navigate = useNavigate()
-
   const [password, setPassword] = useState('')
 
   function verifyPassword() {
@@ -26,10 +25,12 @@ function Auth() {
         className="input input-bordered w-full max-w-xs"
         placeholder="Password"
         value={password}
-        onChange={(state) => {
-          setPassword(state.target.value)
+        onChange={(event) => {
+          setPassword(event.target.value)
         }}
-        onKeyDown={(state) => (state.key === 'Enter' ? verifyPassword() : '')}
+        onKeyDown={(event) =>
+          event.key === 'Enter' ? verifyPassword() : false
+        }
       />
       <button className="btn btn-success" onClick={verifyPassword}>
         Login

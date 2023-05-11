@@ -8,11 +8,8 @@ interface IStoreEmail {
   allEmail: IBodyEmail[] | []
   token: string
   changeEmail: (value: string) => void
-  clearEmail: () => void
   changeEmails: (bodyEmail: IBodyEmail[]) => void
-  clearBodyInArray: () => void
   changeToken: (value: string) => void
-  clearToken: () => void
   default: () => void
 }
 
@@ -29,9 +26,6 @@ const storeEmail = create<IStoreEmail>((set) => ({
     })),
   changeToken: (value: string) => set(() => ({ token: value })),
   changeEmails: (value: IBodyEmail[]) => set(() => ({ allEmail: value })),
-  clearBodyInArray: () => set(() => ({ allEmail: [] })),
-  clearEmail: () => set(() => ({ words: '', emailComplete: '' })),
-  clearToken: () => set(() => ({ token: '' })),
   default: () =>
     set(() => ({
       words: '',

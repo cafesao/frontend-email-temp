@@ -1,37 +1,27 @@
-import { useParams, useNavigate } from 'react-router-dom'
 import ReactHtmlParser from 'react-html-parser'
+import { useParams, Navigate } from 'react-router-dom'
 
 import useStoreEmail from '../zustand/email'
-import { useEffect } from 'react'
 
-function ViewEmail() {
+import path from '../routes/path'
+
+import ButtonBack from '../components/buttons/ButtonBack'
+
+function View() {
   const { index } = useParams()
   const storeEmail = useStoreEmail()
-  const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!index || storeEmail.allEmail.length === 0) {
-      navigate('/listEmail')
-    }
-  }, [storeEmail.allEmail])
   return (
     <>
       {!index || storeEmail.allEmail.length === 0 ? (
-        <></>
+        <Navigate to={path.list} replace />
       ) : (
         <div className="flex flex-col">
           <div className="bg-white p-10 text-black rounded-xl">
             {ReactHtmlParser(storeEmail.allEmail[parseInt(index)].html)}
           </div>
           <div className="flex flex-row items-center justify-center mt-20">
-            <button
-              className="btn btn-warning"
-              onClick={() => {
-                navigate('/listEmail')
-              }}
-            >
-              Back
-            </button>
+            <ButtonBack path={path.list} />
           </div>
         </div>
       )}
@@ -39,4 +29,4 @@ function ViewEmail() {
   )
 }
 
-export default ViewEmail
+export default View
