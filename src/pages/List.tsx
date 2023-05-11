@@ -5,6 +5,7 @@ import useStoreEmail from '../zustand/email'
 
 import fetchAllEmail from '../helpers/fetchAllEmail'
 import createEmail from '../helpers/createEmail'
+import isFocused from '../helpers/isFocused'
 
 import path from '../routes/path'
 
@@ -26,7 +27,9 @@ function List() {
     } else {
       asyncFunction()
       const refreshEmail = setInterval(() => {
-        fetchAllEmail()
+        if (isFocused()) {
+          fetchAllEmail()
+        }
       }, 10000)
 
       return () => clearInterval(refreshEmail)
