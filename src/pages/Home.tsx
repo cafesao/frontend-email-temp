@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom'
 
 import useStoreEmail from '../zustand/email'
 import useStoreLoading from '../zustand/loading'
+import useStoreAuth from '../zustand/auth'
+
 import { generateWords } from '../helpers/fetchData'
 
 import ShowEmail from '../components/ShowEmail'
@@ -9,6 +11,7 @@ import ShowEmail from '../components/ShowEmail'
 function Home() {
   const storeEmail = useStoreEmail()
   const storeLoading = useStoreLoading()
+  const storeAuth = useStoreAuth()
   const navigate = useNavigate()
 
   async function generateEmail() {
@@ -19,6 +22,11 @@ function Home() {
     storeEmail.changeEmail(`${data[0]}-${data[1]}`)
 
     storeLoading.changeButtonGenerateWords(false)
+  }
+
+  function handleLogout() {
+    storeAuth.changeIsAuthenticated(false)
+    navigate('/auth')
   }
 
   return (
@@ -47,6 +55,11 @@ function Home() {
             onClick={generateEmail}
           >
             Generate Words
+          </button>
+        </div>
+        <div className="flex flex-col mt-32">
+          <button className="btn btn-warning" onClick={handleLogout}>
+            Logout
           </button>
         </div>
       </div>
