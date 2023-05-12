@@ -1,15 +1,33 @@
 import IBodyEmail from '../interface/IBodyEmail'
+import useStoreEmail from '../zustand/email'
+
 import axios from 'axios'
 
-async function getAllEmail(token: string): Promise<IBodyEmail[] | [] | false> {
+async function getAllEmail(): Promise<
+  { data: IBodyEmail[]; sha256: string } | boolean
+> {
   try {
-    const fetch = await axios.get(`${import.meta.env.VITE_URL_API_EMAIL}/get`, {
-      headers: {
-        authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json',
+    const sha256 = useStoreEmail.getState().sha256
+    const fetch = await axios.get(
+      sha256 !== ''
+        ? `${
+            import.meta.env.VITE_URL_API_EMAIL
+          }/get?sha256=${encodeURIComponent(sha256)}`
+        : `${import.meta.env.VITE_URL_API_EMAIL}/get`,
+      {
+        headers: {
+          authorization: 'Bearer ' + useStoreEmail.getState().token,
+          'Content-Type': 'application/json',
+        },
       },
-    })
-    return fetch.data
+    )
+    console.log(fetch)
+    if (fetch.status === 304) {
+      return true
+    } else {
+      useStoreEmail.getState().changeSha256(fetch.data.sha256)
+      return fetch.data
+    }
   } catch (error: any) {
     if (error.response.status === 404) {
       return false

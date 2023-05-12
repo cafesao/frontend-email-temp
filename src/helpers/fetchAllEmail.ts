@@ -5,12 +5,16 @@ import { getAllEmail } from './fetchData'
 
 export default async function fetchAllEmail() {
   useStoreLoading.getState().changeButtonGenerateRefresh(true)
-  const emails = await getAllEmail(useStoreEmail.getState().token)
-  if (!emails || emails.length === 0) {
+  const emails = await getAllEmail()
+  if (emails === true) {
+    useStoreLoading.getState().changeButtonGenerateRefresh(false)
+    return true
+  }
+  if (!emails || emails.data.length === 0) {
     useStoreLoading.getState().changeButtonGenerateRefresh(false)
     return false
   }
-  useStoreEmail.getState().changeEmails(emails)
+  useStoreEmail.getState().changeEmails(emails.data)
   useStoreLoading.getState().changeButtonGenerateRefresh(false)
   return true
 }
